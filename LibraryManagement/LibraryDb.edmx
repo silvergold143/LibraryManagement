@@ -1,0 +1,586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LibraryManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblAdmin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+          <Property Name="LibraryId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblAuther">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Qualification" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblBooks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="AutherId" Type="int" />
+          <Property Name="LibraryId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblFooter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayText" Type="nvarchar" MaxLength="50" />
+          <Property Name="LinkUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="SortOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="tblIssues">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BooksId" Type="int" />
+          <Property Name="StudentId" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Renewal" Type="date" />
+          <Property Name="Expiry" Type="date" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblLibrary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactNo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblStudents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="nchar" MaxLength="10" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmetId" Type="int" />
+          <Property Name="LibraryId" Type="int" />
+          <Property Name="Hobbies" Type="nvarchar" MaxLength="50" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="Photo" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tblAdmin_tblLibrary">
+          <End Role="tblLibrary" Type="Self.tblLibrary" Multiplicity="0..1" />
+          <End Role="tblAdmin" Type="Self.tblAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLibrary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblAdmin">
+              <PropertyRef Name="LibraryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBooks_tblAuther">
+          <End Role="tblAuther" Type="Self.tblAuther" Multiplicity="0..1" />
+          <End Role="tblBooks" Type="Self.tblBooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAuther">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblBooks">
+              <PropertyRef Name="AutherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBooks_tblLibrary">
+          <End Role="tblLibrary" Type="Self.tblLibrary" Multiplicity="0..1" />
+          <End Role="tblBooks" Type="Self.tblBooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLibrary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblBooks">
+              <PropertyRef Name="LibraryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIssues_tblBooks">
+          <End Role="tblBooks" Type="Self.tblBooks" Multiplicity="0..1" />
+          <End Role="tblIssues" Type="Self.tblIssues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBooks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblIssues">
+              <PropertyRef Name="BooksId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIssues_tblStudents">
+          <End Role="tblStudents" Type="Self.tblStudents" Multiplicity="0..1" />
+          <End Role="tblIssues" Type="Self.tblIssues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStudents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblIssues">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblStudents_tblDepartment">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblStudents" Type="Self.tblStudents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblStudents">
+              <PropertyRef Name="DepartmetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblStudents_tblLibrary">
+          <End Role="tblLibrary" Type="Self.tblLibrary" Multiplicity="0..1" />
+          <End Role="tblStudents" Type="Self.tblStudents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLibrary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblStudents">
+              <PropertyRef Name="LibraryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryManagementModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAdmin" EntityType="Self.tblAdmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAuther" EntityType="Self.tblAuther" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBooks" EntityType="Self.tblBooks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFooter" EntityType="Self.tblFooter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblIssues" EntityType="Self.tblIssues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLibrary" EntityType="Self.tblLibrary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStudents" EntityType="Self.tblStudents" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblAdmin_tblLibrary" Association="Self.FK_tblAdmin_tblLibrary">
+            <End Role="tblLibrary" EntitySet="tblLibrary" />
+            <End Role="tblAdmin" EntitySet="tblAdmin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBooks_tblAuther" Association="Self.FK_tblBooks_tblAuther">
+            <End Role="tblAuther" EntitySet="tblAuther" />
+            <End Role="tblBooks" EntitySet="tblBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBooks_tblLibrary" Association="Self.FK_tblBooks_tblLibrary">
+            <End Role="tblLibrary" EntitySet="tblLibrary" />
+            <End Role="tblBooks" EntitySet="tblBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIssues_tblBooks" Association="Self.FK_tblIssues_tblBooks">
+            <End Role="tblBooks" EntitySet="tblBooks" />
+            <End Role="tblIssues" EntitySet="tblIssues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIssues_tblStudents" Association="Self.FK_tblIssues_tblStudents">
+            <End Role="tblStudents" EntitySet="tblStudents" />
+            <End Role="tblIssues" EntitySet="tblIssues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblStudents_tblDepartment" Association="Self.FK_tblStudents_tblDepartment">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblStudents" EntitySet="tblStudents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblStudents_tblLibrary" Association="Self.FK_tblStudents_tblLibrary">
+            <End Role="tblLibrary" EntitySet="tblLibrary" />
+            <End Role="tblStudents" EntitySet="tblStudents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LibraryManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblAdmin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LibraryId" Type="Int32" />
+          <NavigationProperty Name="tblLibrary" Relationship="Self.FK_tblAdmin_tblLibrary" FromRole="tblAdmin" ToRole="tblLibrary" />
+        </EntityType>
+        <EntityType Name="tblAuther">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Qualification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblBooks" Relationship="Self.FK_tblBooks_tblAuther" FromRole="tblAuther" ToRole="tblBooks" />
+        </EntityType>
+        <EntityType Name="tblBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="AutherId" Type="Int32" />
+          <Property Name="LibraryId" Type="Int32" />
+          <NavigationProperty Name="tblAuther" Relationship="Self.FK_tblBooks_tblAuther" FromRole="tblBooks" ToRole="tblAuther" />
+          <NavigationProperty Name="tblLibrary" Relationship="Self.FK_tblBooks_tblLibrary" FromRole="tblBooks" ToRole="tblLibrary" />
+          <NavigationProperty Name="tblIssues" Relationship="Self.FK_tblIssues_tblBooks" FromRole="tblBooks" ToRole="tblIssues" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblStudents" Relationship="Self.FK_tblStudents_tblDepartment" FromRole="tblDepartment" ToRole="tblStudents" />
+        </EntityType>
+        <EntityType Name="tblIssue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BooksId" Type="Int32" />
+          <Property Name="StudentId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Renewal" Type="DateTime" Precision="0" />
+          <Property Name="Expiry" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblBook" Relationship="Self.FK_tblIssues_tblBooks" FromRole="tblIssues" ToRole="tblBooks" />
+          <NavigationProperty Name="tblStudent" Relationship="Self.FK_tblIssues_tblStudents" FromRole="tblIssues" ToRole="tblStudents" />
+        </EntityType>
+        <EntityType Name="tblLibrary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAdmins" Relationship="Self.FK_tblAdmin_tblLibrary" FromRole="tblLibrary" ToRole="tblAdmin" />
+          <NavigationProperty Name="tblBooks" Relationship="Self.FK_tblBooks_tblLibrary" FromRole="tblLibrary" ToRole="tblBooks" />
+          <NavigationProperty Name="tblStudents" Relationship="Self.FK_tblStudents_tblLibrary" FromRole="tblLibrary" ToRole="tblStudents" />
+        </EntityType>
+        <EntityType Name="tblStudent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmetId" Type="Int32" />
+          <Property Name="LibraryId" Type="Int32" />
+          <Property Name="Hobbies" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblDepartment" Relationship="Self.FK_tblStudents_tblDepartment" FromRole="tblStudents" ToRole="tblDepartment" />
+          <NavigationProperty Name="tblIssues" Relationship="Self.FK_tblIssues_tblStudents" FromRole="tblStudents" ToRole="tblIssues" />
+          <NavigationProperty Name="tblLibrary" Relationship="Self.FK_tblStudents_tblLibrary" FromRole="tblStudents" ToRole="tblLibrary" />
+        </EntityType>
+        <Association Name="FK_tblAdmin_tblLibrary">
+          <End Role="tblLibrary" Type="Self.tblLibrary" Multiplicity="0..1" />
+          <End Role="tblAdmin" Type="Self.tblAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLibrary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblAdmin">
+              <PropertyRef Name="LibraryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBooks_tblAuther">
+          <End Role="tblAuther" Type="Self.tblAuther" Multiplicity="0..1" />
+          <End Role="tblBooks" Type="Self.tblBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAuther">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblBooks">
+              <PropertyRef Name="AutherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBooks_tblLibrary">
+          <End Role="tblLibrary" Type="Self.tblLibrary" Multiplicity="0..1" />
+          <End Role="tblBooks" Type="Self.tblBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLibrary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblBooks">
+              <PropertyRef Name="LibraryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIssues_tblBooks">
+          <End Role="tblBooks" Type="Self.tblBook" Multiplicity="0..1" />
+          <End Role="tblIssues" Type="Self.tblIssue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBooks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblIssues">
+              <PropertyRef Name="BooksId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblStudents_tblDepartment">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblStudents" Type="Self.tblStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblStudents">
+              <PropertyRef Name="DepartmetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIssues_tblStudents">
+          <End Role="tblStudents" Type="Self.tblStudent" Multiplicity="0..1" />
+          <End Role="tblIssues" Type="Self.tblIssue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStudents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblIssues">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblStudents_tblLibrary">
+          <End Role="tblLibrary" Type="Self.tblLibrary" Multiplicity="0..1" />
+          <End Role="tblStudents" Type="Self.tblStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLibrary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblStudents">
+              <PropertyRef Name="LibraryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tblAdmins" EntityType="Self.tblAdmin" />
+          <EntitySet Name="tblAuthers" EntityType="Self.tblAuther" />
+          <EntitySet Name="tblBooks" EntityType="Self.tblBook" />
+          <EntitySet Name="tblDepartments" EntityType="Self.tblDepartment" />
+          <EntitySet Name="tblIssues" EntityType="Self.tblIssue" />
+          <EntitySet Name="tblLibraries" EntityType="Self.tblLibrary" />
+          <EntitySet Name="tblStudents" EntityType="Self.tblStudent" />
+          <AssociationSet Name="FK_tblAdmin_tblLibrary" Association="Self.FK_tblAdmin_tblLibrary">
+            <End Role="tblLibrary" EntitySet="tblLibraries" />
+            <End Role="tblAdmin" EntitySet="tblAdmins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBooks_tblAuther" Association="Self.FK_tblBooks_tblAuther">
+            <End Role="tblAuther" EntitySet="tblAuthers" />
+            <End Role="tblBooks" EntitySet="tblBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBooks_tblLibrary" Association="Self.FK_tblBooks_tblLibrary">
+            <End Role="tblLibrary" EntitySet="tblLibraries" />
+            <End Role="tblBooks" EntitySet="tblBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIssues_tblBooks" Association="Self.FK_tblIssues_tblBooks">
+            <End Role="tblBooks" EntitySet="tblBooks" />
+            <End Role="tblIssues" EntitySet="tblIssues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblStudents_tblDepartment" Association="Self.FK_tblStudents_tblDepartment">
+            <End Role="tblDepartment" EntitySet="tblDepartments" />
+            <End Role="tblStudents" EntitySet="tblStudents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIssues_tblStudents" Association="Self.FK_tblIssues_tblStudents">
+            <End Role="tblStudents" EntitySet="tblStudents" />
+            <End Role="tblIssues" EntitySet="tblIssues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblStudents_tblLibrary" Association="Self.FK_tblStudents_tblLibrary">
+            <End Role="tblLibrary" EntitySet="tblLibraries" />
+            <End Role="tblStudents" EntitySet="tblStudents" />
+          </AssociationSet>
+          <EntitySet Name="tblFooters" EntityType="LibraryManagementModel.tblFooter" />
+        </EntityContainer>
+        <EntityType Name="tblFooter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LinkUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LibraryManagementModelStoreContainer" CdmEntityContainer="LibraryManagementEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="LibraryManagementModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAdmins">
+            <EntityTypeMapping TypeName="LibraryManagementModel.tblAdmin">
+              <MappingFragment StoreEntitySet="tblAdmin">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="LibraryId" ColumnName="LibraryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAuthers">
+            <EntityTypeMapping TypeName="LibraryManagementModel.tblAuther">
+              <MappingFragment StoreEntitySet="tblAuther">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBooks">
+            <EntityTypeMapping TypeName="LibraryManagementModel.tblBook">
+              <MappingFragment StoreEntitySet="tblBooks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AutherId" ColumnName="AutherId" />
+                <ScalarProperty Name="LibraryId" ColumnName="LibraryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDepartments">
+            <EntityTypeMapping TypeName="LibraryManagementModel.tblDepartment">
+              <MappingFragment StoreEntitySet="tblDepartment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblIssues">
+            <EntityTypeMapping TypeName="LibraryManagementModel.tblIssue">
+              <MappingFragment StoreEntitySet="tblIssues">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BooksId" ColumnName="BooksId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Renewal" ColumnName="Renewal" />
+                <ScalarProperty Name="Expiry" ColumnName="Expiry" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLibraries">
+            <EntityTypeMapping TypeName="LibraryManagementModel.tblLibrary">
+              <MappingFragment StoreEntitySet="tblLibrary">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStudents">
+            <EntityTypeMapping TypeName="LibraryManagementModel.tblStudent">
+              <MappingFragment StoreEntitySet="tblStudents">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="DepartmetId" ColumnName="DepartmetId" />
+                <ScalarProperty Name="LibraryId" ColumnName="LibraryId" />
+                <ScalarProperty Name="Hobbies" ColumnName="Hobbies" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFooters">
+            <EntityTypeMapping TypeName="LibraryManagementModel.tblFooter">
+              <MappingFragment StoreEntitySet="tblFooter">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="LinkUrl" ColumnName="LinkUrl" />
+                <ScalarProperty Name="DisplayText" ColumnName="DisplayText" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

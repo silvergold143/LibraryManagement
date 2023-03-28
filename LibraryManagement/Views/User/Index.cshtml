@@ -1,0 +1,56 @@
+﻿@model LibraryManagement.Models.UserLogin
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_myLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-4">
+
+    </div>
+    <div class="col-4">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h3>UserLogin</h3>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Login" class="btn btn-success" />
+                    </div>
+                    <font color="red">@ViewBag.msg</font>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-4">
+
+    </div>
+</div>
+
+
+<script src="~/Script/jquery-3.6.0.js"></script>
+
+<script src="~/Script/jquery.validate.js"></script>
+<script src="~/Script/jquery.validate.unobtrusive.min.js"></script>

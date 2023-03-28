@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c08043822025474d99151151f367f797" Name="Diagram1">
+        <EntityTypeShape EntityType="LibraryManagementModel.sysdiagram" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.tblAdmin" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.tblAuther" Width="1.5" PointX="3.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.tblBook" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.tblDepartment" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.tblIssue" Width="1.5" PointX="8.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.tblLibrary" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.tblStudent" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="LibraryManagementModel.FK_tblAdmin_tblLibrary" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_tblBooks_tblAuther" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_tblBooks_tblLibrary" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_tblIssues_tblBooks" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_tblStudents_tblDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_tblIssues_tblStudents" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_tblStudents_tblLibrary" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LibraryManagementModel.tblFooter" Width="1.5" PointX="5.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

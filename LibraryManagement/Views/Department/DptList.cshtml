@@ -1,0 +1,44 @@
+﻿@model IEnumerable<LibraryManagement.tblDepartment>
+
+@{
+    ViewBag.Title = "DptList";
+    Layout = "~/Views/Shared/_myLayout.cshtml";
+}
+
+<h2>DptList</h2>
+<div class="row">
+    <div class="col-4">
+        <p>
+            @Html.ActionLink("New Department", "Create",null,new { @class = "btn btn-success btn-sm" })
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th></th>
+            </tr>
+            <div class="alert alert-success">@TempData["msg"]</div>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Modify", "Create", new { id = item.Id }, new { @class = "btn btn-success btn-sm" }) |
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", @onclick = "return confirm('Are you sure?')" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div class="col-8">
+
+    </div>
+
+</div>
+
+

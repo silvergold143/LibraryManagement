@@ -1,0 +1,56 @@
+﻿<style>
+    a {
+        text-decoration:none;
+        color:white
+            
+    }
+</style>
+
+<div class="row bg-dark text-white">
+    <div class="col-4">
+        <ul>
+            @{
+                using (var ctx = new LibraryManagementEntities())
+                {
+                    foreach (var item in ctx.tblFooters.OrderBy(o=>o.SortOrder).Skip(0).Take(4).ToList())
+                    {
+                        <li><a href="@item.LinkUrl">@item.DisplayText</a> </li>
+                    }
+                }
+
+            }
+
+        </ul>
+    </div>
+    <div class="col-4">
+        <ul>
+            @{
+                using (var ctx = new LibraryManagementEntities())
+                {
+                    foreach (var item in ctx.tblFooters.OrderBy(o => o.SortOrder).Skip(4).Take(4).ToList())
+                    {
+                        <li><a href="@item.LinkUrl">@item.DisplayText</a> </li>
+                    }
+                }
+
+            }
+
+        </ul>
+    </div>
+    <div class="col-4">
+        <ul>
+            @{
+                using (var ctx = new LibraryManagementEntities())
+                {
+                    foreach (var item in ctx.tblFooters.OrderBy(o => o.SortOrder).Skip(8).Take(4).ToList())
+                    {
+                        <li><a href="@item.LinkUrl">@item.DisplayText</a> </li>
+                    }
+                }
+
+            }
+
+        </ul>
+    </div>
+
+</div>

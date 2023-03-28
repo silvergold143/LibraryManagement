@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @System.Web.Optimization.Styles.Render("~/bundles/Allcss")
+    @System.Web.Optimization.Scripts.Render("~/bundles/Alljs")
+   <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+ 
+
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />
+        <script src="~/Script/bootstrap.bundle.js"></script>
+        <script src="~/Script/jquery-3.6.0.js"></script>*@
+</head>
+<body>
+
+    <div class="container-fluid" style="background: #e6e92c">
+        <div class="row">
+            <div class="col-4">
+                <b class="fs-1 p-3 text-center">Library Management System</b>
+            </div>
+            <div class="col-4">
+
+            </div>
+            <div class="col-4">
+                @Html.Partial("LoginView")
+
+            </div>
+        </div>
+
+    </div>
+    @Html.Partial("_Menu")
+    <div class="container">
+        @RenderBody()
+    </div>
+    @Html.Partial("_Footer")
+</body>
+</html>
